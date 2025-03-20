@@ -7,7 +7,7 @@ import {
 } from "../../assets/constants";
 import { InputGroup } from "@/components/ui/input-group";
 
-const PostFooter = ({username}) => {
+const PostFooter = ({username, isProfilePage}) => {
   const [liked, setLiked] = useState(false);
   const [likes, setLikes] = useState(0);
 
@@ -22,7 +22,7 @@ const PostFooter = ({username}) => {
   };
   return (
     //  maxW="470px"
-    <Box mb={10} >
+    <Box mb={10} mt={"auto"}>
       <Flex alignItems={"center"} gap={4} w={"full"} pt={0} mb={2} mt={4}>
         <Box onClick={handleLike}>
           {liked ? <UnlikeLogo />: <NotificationsLogo />}
@@ -34,16 +34,20 @@ const PostFooter = ({username}) => {
 
       <Text fontSize={"sm"}>{likes} likes</Text>
 
-      <Text fontSize={"sm"} fontWeight={"700"}>
-        {username}{" "}
-        <Text as="span" flexWrap={200}>
-          Feeling good!!
-        </Text>
-      </Text>
+      {!isProfilePage && (
+        <>
+          <Text fontSize={"sm"} fontWeight={"700"}>
+            {username}{" "}
+            <Text as="span" flexWrap={200}>
+              Feeling good!!
+            </Text>
+          </Text>
 
-      <Text fontSize={"sm"} color={"gray"}>
-        View all 1,000 comments
-      </Text>
+          <Text fontSize={"sm"} color={"gray"}>
+            View all 1,000 comments
+          </Text>
+        </>
+      )}
 
       <Flex
         justifyContent={"space-between"}
