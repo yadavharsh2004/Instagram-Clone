@@ -1,9 +1,9 @@
 import { Box, Button, Flex, Image, Input, Text, VStack } from "@chakra-ui/react";
 import React, { useState } from "react";
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import Login from "./Login";
+import Signup from "./Signup";
 
 const AuthForm = () => {
-  const navigate = useNavigate();
   const [isLogin, setIsLogin] = useState(true);
   const [inputs, setInputs] = useState({
     email : "",
@@ -11,14 +11,14 @@ const AuthForm = () => {
     confirmPassword : "",
   })
 
-  const handleAuth = () =>{
-    if(!inputs.email || !inputs.password || !inputs.confirmPassword){
-      alert("Please fill all the fields");
-      return ;
-    }
+  // const handleAuth = () =>{
+  //   if(!inputs.email || !inputs.password || !inputs.confirmPassword){
+  //     alert("Please fill all the fields");
+  //     return ;
+  //   }
 
-    navigate("/");
-  }
+  //   navigate("/");
+  // }
 
   return (
     <>
@@ -26,23 +26,10 @@ const AuthForm = () => {
       <VStack spacing={4}>
 
         <Image src="/logo.png"        h={24}       cursor={"pointer"} alt="Instagram" />
-        <Input placeholder="Email"    type="email" fontSize={14}
-          value={inputs.email} 
-          onChange={(e) => setInputs({...inputs, email: e.target.value} )} />
+        
+        {isLogin ? <Login /> : <Signup />}
 
-        <Input placeholder="Password" type="password" fontSize={14} 
-          value={inputs.password}
-          onChange={(e)=> setInputs({...inputs, password: e.target.value})}/>
 
-        {!isLogin ? (
-          <Input placeholder="Confirm Password" type="password" fontSize={14} 
-            value={inputs.confirmPassword}
-            onChange={(e)=> setInputs({...inputs, confirmPassword: e.target.value})}/>
-        ) : null}
-
-        <Button w={"full"} colorScheme={"blue"} size={"sm"} fontSize={14} onClick={handleAuth}>
-            {isLogin? "Log in" : "Sign Up"}
-        </Button>
 
         {/* OR Text  */}
         <Flex justifyContent={"center"} alignItems={"center"} my={4} gap={1} w={"full"}>
