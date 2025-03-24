@@ -1,7 +1,8 @@
 import { InputGroup, InputRightElement } from "@chakra-ui/input";
-import { Button, Input } from "@chakra-ui/react";
+import { Alert, AlertIndicator, Button, Input } from "@chakra-ui/react";
 import { useState } from "react";
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
+import useSignupWithEmailAndPassword from "../../hooks/useSignupWithEmailAndPassword";
 
 const Signup = () => {
   const [inputs, setInputs] = useState({
@@ -12,6 +13,7 @@ const Signup = () => {
   });
 
   const [showPassword, setShowPassword] = useState(false);
+  const {signup, loading, error} = useSignupWithEmailAndPassword();
 
   return (
     <>
@@ -30,7 +32,7 @@ const Signup = () => {
         fontSize={14}
         size={"sm"}
         value={inputs.username}
-        onChange={(e) => setInputs({ ...inputs, email: e.target.value })}
+        onChange={(e) => setInputs({ ...inputs, username: e.target.value })}
       />
 
       <Input
@@ -39,7 +41,7 @@ const Signup = () => {
         fontSize={14}
         size={"sm"}
         value={inputs.fullName}
-        onChange={(e) => setInputs({ ...inputs, email: e.target.value })}
+        onChange={(e) => setInputs({ ...inputs, fullName: e.target.value })}
       />
 
       <InputGroup>
@@ -61,7 +63,17 @@ const Signup = () => {
 
       </InputGroup>
 
-      <Button w={"full"} colorScheme={"blue"} size={"sm"} fontSize={14} >
+      {error && (
+        <Alert.Root status={"error"} fontSize={12} p={2} borderRadius={4} >
+          <AlertIndicator fontSize={12} />
+          {error.message}
+        </Alert.Root>
+      )}
+
+      <Button w={"full"} colorScheme={"blue"} size={"sm"} fontSize={14}
+        isLoading ={loading} 
+        onClick={()=> signup(inputs)}
+      >
         Sign Up
       </Button> 
     </>

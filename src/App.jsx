@@ -12,6 +12,8 @@ import HomePage from './pages/HomePage/HomePage';
 import AuthPage from './pages/AuthPage/AuthPage';
 import PageLayout from './Layouts/PageLayout/PageLayout';
 import ProfilePage from './pages/ProfilePage/ProfilePage';
+import { Toaster, toaster } from "@/components/ui/toaster"
+
 
 
 
@@ -44,6 +46,7 @@ function App() {
           <Route path='/:username' element= {<ProfilePage />} />
         </Routes>
 
+        <Toaster/>
       </PageLayout>
     </Provider>
   )
