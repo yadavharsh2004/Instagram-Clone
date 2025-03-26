@@ -71,7 +71,7 @@ const Signup = () => {
       )}
 
       <Button w={"full"} colorScheme={"blue"} size={"sm"} fontSize={14}
-        isLoading ={loading} 
+        loading ={loading} 
         onClick={()=> signup(inputs)}
       >
         Sign Up
