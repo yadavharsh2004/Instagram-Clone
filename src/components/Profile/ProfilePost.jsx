@@ -113,9 +113,11 @@ const ProfilePost = ({ img }) => {
 
         <Dialog.Positioner>
           <Dialog.Content>
+
             <Dialog.CloseTrigger position={"absolute"} top={0} right={0}>
               <CloseButton />
             </Dialog.CloseTrigger>
+
             <Dialog.Body bg={"black"} pb={5}>
               <Flex
                 gap={4}
@@ -211,11 +213,16 @@ const ProfilePost = ({ img }) => {
                       text={"NOICE"}
                     />
                   </VStack>
+
                   <Box borderBottom={"2px solid"} borderColor={"gray.800"}></Box>
+
                   <PostFooter isProfilePage={true} />
+
                 </Flex>
+                
               </Flex>
             </Dialog.Body>
+
           </Dialog.Content>
         </Dialog.Positioner>
       </Dialog.Root>

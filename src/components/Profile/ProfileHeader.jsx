@@ -2,6 +2,8 @@ import {
   Avatar,
   AvatarGroup,
   Button,
+  CloseButton,
+  Dialog,
   Flex,
   Text,
   VStack,
@@ -9,14 +11,17 @@ import {
 import React from "react";
 import useUserProfileStore from "../../store/userProfileStore";
 import useAuthStore from "../../store/authStore";
+import EditProfile from "./EditProfile";
 
 const ProfileHeader = () => {
   const { userProfile } = useUserProfileStore();
   const authUser = useAuthStore((state) => state.user);
 
-  const visitingOwnProfileAndAuth = authUser && authUser.username === userProfile.username;
-  
-  const visitingAnotherProfileAndAuth = authUser && authUser.username !== userProfile.username;
+  const visitingOwnProfileAndAuth =
+    authUser && authUser.username === userProfile.username;
+
+  const visitingAnotherProfileAndAuth =
+    authUser && authUser.username !== userProfile.username;
 
   return (
     <Flex gap={{ base: 4, sm: 10 }} direction={{ base: "column", sm: "row" }}>
@@ -29,7 +34,10 @@ const ProfileHeader = () => {
       >
         <Avatar.Root>
           <Avatar.Fallback name="Harsh Yadav" />
-          <Avatar.Image src={userProfile.profilePicUrl || null} alt="Harsh Yadav" />
+          <Avatar.Image
+            src={userProfile.profilePicUrl || null}
+            alt="Harsh Yadav"
+          />
         </Avatar.Root>
       </AvatarGroup>
 
@@ -50,14 +58,36 @@ const ProfileHeader = () => {
           {/* Button */}
           {visitingOwnProfileAndAuth && (
             <Flex gap={4} alignItems={"center"} justifyContent={"center"}>
-              <Button
-                bg={"blue.500"}
-                color={"white"}
-                _hover={{ bg: "blue.700" }}
-                size={{base: "xs", md:"sm"}}
-              >
-                Edit Profile
-              </Button>
+              <Dialog.Root>
+                <Dialog.Trigger asChild>
+
+                  <Button
+                    bg={"whiteAlpha.800"}
+                    color={"black"}
+                    _hover={{ bg: "blue.700", color:"white"}}
+                    size={{ base: "xs", md: "sm" }}
+                  >
+                    Edit Profile
+                  </Button>
+
+                </Dialog.Trigger>
+
+                <Dialog.Backdrop />
+
+                <Dialog.Positioner>
+                  <Dialog.Content bg={"black"} border={"1px solid"} borderColor={"whiteAlpha.500"}>
+
+                    <Dialog.CloseTrigger position={"absolute"} cursor={"pointer"} top={3} right={4}>
+                      X
+                    </Dialog.CloseTrigger>
+
+                    <Dialog.Body>
+                      <EditProfile />
+                    </Dialog.Body>
+
+                  </Dialog.Content>
+                </Dialog.Positioner>
+              </Dialog.Root>
             </Flex>
           )}
           {visitingAnotherProfileAndAuth && (
