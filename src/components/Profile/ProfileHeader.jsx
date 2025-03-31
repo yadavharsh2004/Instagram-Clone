@@ -8,7 +8,7 @@ import {
   Text,
   VStack,
 } from "@chakra-ui/react";
-import React from "react";
+import React, { useState } from "react";
 import useUserProfileStore from "../../store/userProfileStore";
 import useAuthStore from "../../store/authStore";
 import EditProfile from "./EditProfile";
@@ -22,6 +22,7 @@ const ProfileHeader = () => {
 
   const visitingAnotherProfileAndAuth =
     authUser && authUser.username !== userProfile.username;
+
 
   return (
     <Flex gap={{ base: 4, sm: 10 }} direction={{ base: "column", sm: "row" }}>
@@ -82,7 +83,7 @@ const ProfileHeader = () => {
                     </Dialog.CloseTrigger>
 
                     <Dialog.Body>
-                      <EditProfile />
+                      <EditProfile  />
                     </Dialog.Body>
 
                   </Dialog.Content>
