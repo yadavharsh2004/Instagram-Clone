@@ -12,10 +12,12 @@ import React, { useState } from "react";
 import useUserProfileStore from "../../store/userProfileStore";
 import useAuthStore from "../../store/authStore";
 import EditProfile from "./EditProfile";
+import useFollowUser from "../../hooks/useFollowUser";
 
 const ProfileHeader = () => {
   const { userProfile } = useUserProfileStore();
   const authUser = useAuthStore((state) => state.user);
+  const {isFollowing, isUpdating, handleFollowUser} = useFollowUser(userProfile?.uid);
 
   const visitingOwnProfileAndAuth =
     authUser && authUser.username === userProfile.username;
@@ -94,12 +96,14 @@ const ProfileHeader = () => {
           {visitingAnotherProfileAndAuth && (
             <Flex gap={4} alignItems={"center"} justifyContent={"center"}>
               <Button
-                bg={"white"}
-                color={"black"}
-                _hover={{ bg: "whiteAlpha.800" }}
+                bg={"blue.500"}
+                color={"white"}
+                _hover={{ bg: "whiteAlpha.800", color:"black " }}
                 size={"xs"}
+                onClick={handleFollowUser}
+                loading = {isUpdating}
               >
-                Follow
+                {isFollowing? "Unfollow": "Follow"}
               </Button>
             </Flex>
           )}

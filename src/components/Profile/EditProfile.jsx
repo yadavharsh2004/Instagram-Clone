@@ -74,7 +74,7 @@ const EditProfile = () => {
                   cursor={"pointer"}
                   onClick={() => fileRef.current.click()}
                 >
-                  Edit Profile Picture
+                  Change Photo
                 </Box>
                 <Input type="file" hidden ref={fileRef} onChange={handleImageChange} />
               </Center>
