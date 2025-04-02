@@ -31,8 +31,7 @@ const ProfileLink = () => {
                 <Avatar.Root>
                     <Avatar.Fallback name="Harsh Yadav" />
                     <Avatar.Image
-                        src={authUser?.profilePicURL || null}
-                        alt="Harsh Yadav"
+                        src={authUser.profilePicUrl || null}
                     />
                 </Avatar.Root>
 				<Box display={{ base: "none", md: "block" }}>Profile</Box>

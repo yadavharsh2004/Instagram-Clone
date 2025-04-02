@@ -93,6 +93,8 @@ const ProfileHeader = () => {
               </Dialog.Root>
             </Flex>
           )}
+          
+          {/* Follow and Unfollow Button  */}
           {visitingAnotherProfileAndAuth && (
             <Flex gap={4} alignItems={"center"} justifyContent={"center"}>
               <Button
@@ -109,6 +111,7 @@ const ProfileHeader = () => {
           )}
         </Flex>
 
+        {/* Posts  */}
         <Flex alignItems={"center"} gap={{ base: 2, sm: 4 }}>
           <Text fontSize={"xs"}>
             <Text as="span" fontWeight={"bold"} mr={1}>
@@ -132,12 +135,14 @@ const ProfileHeader = () => {
           </Text>
         </Flex>
 
+        {/* Full Name  */}
         <Flex alignItems={"center"} gap={4}>
           <Text fontSize={"sm"} fontWeight={"bold"}>
             {userProfile.fullName}
           </Text>
         </Flex>
 
+          {/* Bio  */}
         <Flex alignItems={"center"} gap={4}>
           <Text fontSize={"sm"} fontWeight={"bold"}>
             {userProfile.bio}
