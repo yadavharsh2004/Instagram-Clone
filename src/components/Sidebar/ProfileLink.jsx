@@ -5,7 +5,7 @@ import useAuthStore from "../../store/authStore";
 
 const ProfileLink = () => {
 	const authUser = useAuthStore((state) => state.user);
-
+	if(!authUser) return null
 	return (
 		<Tooltip
 			hasArrow
@@ -31,7 +31,7 @@ const ProfileLink = () => {
                 <Avatar.Root>
                     <Avatar.Fallback name="Harsh Yadav" />
                     <Avatar.Image
-                        src={authUser.profilePicUrl || null}
+                        src={authUser?.profilePicUrl || null}
                     />
                 </Avatar.Root>
 				<Box display={{ base: "none", md: "block" }}>Profile</Box>
