@@ -10,7 +10,7 @@ const useSearchUser = () => {
   
   const getUserProfile = async (username) =>{
     setIsLoading(true)
-    setUser(null)
+    // setUser(null)   //for removing previously searched people 
     try {
         const q = query(collection(firestore, "users"),where("username", "==", username ) );
         const querySnapshot = await getDocs(q);  
