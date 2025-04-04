@@ -19,7 +19,7 @@ import useAuthStore from "../../store/authStore";
 import usePostStore from "../../store/postStore";
 import useUserProfileStore from "../../store/userProfileStore";
 import { useLocation } from "react-router-dom";
-import {arrayUnion, collection, doc, updateDoc} from 'firebase/firestore'
+import {addDoc, arrayUnion, collection, doc, updateDoc} from 'firebase/firestore'
 import { firestore, storage } from "../../firebase/firebase";
 import { getDownloadURL, ref, uploadString } from "firebase/storage";
 
@@ -27,11 +27,19 @@ const CreatePost = () => {
   const [caption, setCaption] = useState("");
   const imageRef = useRef(null);
   const { selectedFile, handleImageChange, setSelectedFile } = usePrevImg();
+  const showToast = useShowToast();
 
   const {isLoading, handleCreatePost} = useCreatePost()
 
   const handlePostCreation = async ()=>{
-    
+    try {
+      await handleCreatePost(selectedFile, caption);
+      setCaption("");
+      setSelectedFile(null)
+    } 
+    catch (error) {
+      showToast("Error", error.message, "error")
+    }
   }
 
   return (
@@ -105,7 +113,6 @@ const CreatePost = () => {
               ✕
             </button>
             <button className="btn btn-sm btn-outline border-white text-black bg-white hover:bg-gray-100 absolute right-2 bottom-2"
-
               onClick={handlePostCreation}
             >
               Post
@@ -153,12 +160,13 @@ function useCreatePost(){
   const showToast = useShowToast();
   const [isLoading, setIsLoading] = useState(false);
   const authUser = useAuthStore(state => state.user);
-  // const {createPost} = usePostStore();
+  // const {createPost} = usePostStore();  //same as below 
   const createPost = usePostStore(state => state.createPost)
   const addPost = useUserProfileStore(state => state.addPost)
   const {pathname} = useLocation();
 
   const handleCreatePost = async (selectedFile, caption) =>{
+    if(isLoading) return;
     if(!selectedFile) throw new Error("Please select an image ")
     setIsLoading(true);
 
