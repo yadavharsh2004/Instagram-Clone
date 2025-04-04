@@ -7,4 +7,4 @@ const useAuthStore = create((set) => ({
     setUser : (user) => set({user}),
 }));
 
-export default useAuthStore;
+export default useAuthStore;        
