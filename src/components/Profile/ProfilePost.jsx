@@ -53,7 +53,7 @@ const ProfilePost = ({ post  }) => {
 
       deletePost(post.id);
       deletePostFromProfile(post.id);
-      showToast("Success", "Post deleted successfully", "success");
+      showToast("Success", "Post deleted successfully", "success"); 
 
     } catch (error) {
       showToast("Error", error.message, "error");
