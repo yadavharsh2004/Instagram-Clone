@@ -17,9 +17,13 @@ import { MdDelete } from "react-icons/md";
 import React from "react";
 import Comment from "../Comments/Comment";
 import PostFooter from "../FeedPosts/PostFooter";
+import useUserProfileStore from "../../store/userProfileStore";
+import useAuthStore from "../../store/authStore";
 
-const ProfilePost = ({ img }) => {
+const ProfilePost = ({ post  }) => {
   // const { isOpen, onOpen, onClose } = useDisclosure();
+  const userProfile = useUserProfileStore(state => state.userProfile);
+  const authUser = useAuthStore(state => state.user)
 
   return (
     <>
@@ -52,21 +56,21 @@ const ProfilePost = ({ img }) => {
                 <Flex>
                   <AiFillHeart size={20} />
                   <Text fontWeight={"bold"} ml={2}>
-                    7
+                    {post.likes.length}
                   </Text>
                 </Flex>
 
                 <Flex>
                   <FaComment size={20} />
                   <Text fontWeight={"bold"} ml={2}>
-                    7
+                    {post.comments.length}
                   </Text>
                 </Flex>
               </Flex>
             </Flex>
 
             <Image
-              src={img}
+              src={post.imageURL || null}
               alt="profile post"
               width={"100%"}
               height={"100%"}
@@ -123,6 +127,8 @@ const ProfilePost = ({ img }) => {
                 gap={4}
                 w={{ base: "90%", sm: "70%", md: "full" }}
                 mx={"auto"}
+                maxH={"90vh"}
+                minH={"50vh"}
               >
                 {/* Left Side  */}
                 <Flex
@@ -133,12 +139,9 @@ const ProfilePost = ({ img }) => {
                   flex={1.5}
                   alignItems={"center"}
                   justifyContent={"center"}
-                  h={"682px"}
-                  w={"100%"}
-                  maxW={"600px"}
-                  
+                  w={"100%"}                  
                 >
-                  <Image maxH={"682px"} src={img} alt="profile Post" />
+                  <Image maxH={"682px"} src={post.imageURL || null} alt="profile Post" />
                 </Flex>
 
                 {/* Right Side  */}
@@ -146,8 +149,7 @@ const ProfilePost = ({ img }) => {
                   flex={1}
                   flexDirection={"column"}
                   px={10}
-                  display={{ base: "none", md: "flex" }}
-                  
+                  display={{ base: "none", md: "flex" }}  
                 >
                   {/* userProfilepic and username  */}
                   <Flex
@@ -159,25 +161,30 @@ const ProfilePost = ({ img }) => {
                   >
                     <Flex alignItems={"center"} gap={4}>
                       <Avatar.Root>
+                        <Avatar.Fallback name={userProfile.fullName} />
                         <Avatar.Image
-                          src="/profilepic.png"
+                          src={userProfile.profilePicUrl || null}
                           sizes={"sm"}
                           alt="User profile Pic"
                         />
                       </Avatar.Root>
 
                       <Text fontWeight={"bold"} fontSize={12}>
-                        harsh.yadav.3011
+                        {userProfile.username}
                       </Text>
                     </Flex>
 
-                    <Box
-                      _hover={{ bg: "whiteAlpha.300", color: "red.600" }}
-                      borderRadius={4}
-                      p={1}
-                    >
-                      <MdDelete size={20} cursor={"pointer"} />
-                    </Box>
+                    {authUser?.uid === userProfile.uid && (
+                      <Button
+                        _hover={{ bg: "whiteAlpha.300", color: "red.600" }}
+                        borderRadius={4}
+                        p={1}
+                        size={"sm"}
+                        bg={"transparent"}
+                      >
+                        <MdDelete size={20} cursor={"pointer"} />
+                      </Button>
+                    )}
                   </Flex>
 
                   <VStack
@@ -188,24 +195,6 @@ const ProfilePost = ({ img }) => {
                     overflow={"auto"}
                     py={4}
                   >
-                    <Comment
-                      createdAt={"3h ago"}
-                      username={"harsh.yadav.3011"}
-                      profilepic={"profilepic.png"}
-                      text={"NOICE"}
-                    />
-                    <Comment
-                      createdAt={"3h ago"}
-                      username={"ansu.gupta.1303"}
-                      profilepic={"profilepic.png"}
-                      text={"NOICE"}
-                    />
-                    <Comment
-                      createdAt={"3h ago"}
-                      username={"ansu.gupta.1303"}
-                      profilepic={"profilepic.png"}
-                      text={"NOICE"}
-                    />
                     <Comment
                       createdAt={"3h ago"}
                       username={"rishabh.singh.3009"}

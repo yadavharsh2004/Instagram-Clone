@@ -6,7 +6,7 @@ const usePostStore = create((set) =>({
 
     //deletePost
     //addComments
-    //setPosts
+    setPosts: (posts) => set({posts}),
 
 }))
 
