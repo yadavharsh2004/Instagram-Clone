@@ -154,8 +154,9 @@ const ProfilePost = ({ post  }) => {
         <Dialog.Positioner>
           <Dialog.Content>
 
-            <Dialog.CloseTrigger position={"absolute"} top={0} right={0}>
-              <CloseButton />
+            <Dialog.CloseTrigger position={"absolute"} top={3} right={3}>
+              {/* <CloseButton /> */}
+              X
             </Dialog.CloseTrigger>
 
             <Dialog.Body bg={"black"} pb={5}>
