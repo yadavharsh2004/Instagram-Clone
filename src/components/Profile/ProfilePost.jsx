@@ -23,6 +23,7 @@ import { firestore, storage } from "../../firebase/firebase";
 import { deleteObject, ref } from "firebase/storage";
 import { arrayRemove, deleteDoc, doc, updateDoc } from "firebase/firestore";
 import usePostStore from "../../store/postStore";
+import Caption from "../Comments/Caption";
 
 const ProfilePost = ({ post  }) => {
   const userProfile = useUserProfileStore(state => state.userProfile);
@@ -235,6 +236,9 @@ const ProfilePost = ({ post  }) => {
                     overflow={"auto"}
                     py={4}
                   >
+                    {/* Captions  */}
+                    {post.caption && <Caption post={post} />}
+                    {/* comments  */}
                     {post.comments.map((comment)=>(
                       <Comment key={comment.id} comment={comment} />
                     ))}
