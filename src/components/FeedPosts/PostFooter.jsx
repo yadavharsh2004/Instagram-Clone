@@ -6,12 +6,22 @@ import {
   UnlikeLogo,
 } from "../../assets/constants";
 import { InputGroup } from "@/components/ui/input-group";
+import usePostComment from "../../hooks/usePostComment";
+import useAuthStore from "../../store/authStore";
 
-const PostFooter = ({username, isProfilePage}) => {
+const PostFooter = ({ post, username, isProfilePage }) => {
   const [liked, setLiked] = useState(false);
   const [likes, setLikes] = useState(0);
+  const [comment, setComment] = useState("");
+  const { isCommenting, handlePostComment } = usePostComment();
+  const authUser = useAuthStore((state) => state.user);
 
-  const handleLike = () => {    
+  const handleSubmitComment = async () => {
+    await handlePostComment(post.id, comment);
+    setComment("");
+  };
+
+  const handleLike = () => {
     if (liked) {
       setLiked(false);
       setLikes(likes - 1);
@@ -25,7 +35,7 @@ const PostFooter = ({username, isProfilePage}) => {
     <Box mb={10} mt={"auto"}>
       <Flex alignItems={"center"} gap={4} w={"full"} pt={0} mb={2} mt={4}>
         <Box onClick={handleLike}>
-          {liked ? <UnlikeLogo />: <NotificationsLogo />}
+          {liked ? <UnlikeLogo /> : <NotificationsLogo />}
         </Box>
         <Box cursor={"pointer"} fontSize={18}>
           <CommentLogo />
@@ -49,35 +59,39 @@ const PostFooter = ({username, isProfilePage}) => {
         </>
       )}
 
-      <Flex
-        justifyContent={"space-between"}
-        alignItems={"center"}
-        gap={2}
-        w={"full"}
-      >
-        <InputGroup
-          flex="1"
-          // startElement={<Comment here />}
-          endElement={
-            <Button
-              fontSize={14}
-              color={"blue.500"}
-              fontWeight={600}
-              cursor={"pointer"}
-              _hover={{ color: "white" }}
-              background={"transparent"}
-            >
-              Post
-            </Button>
-          }
+      {authUser && (
+        <Flex
+          justifyContent={"space-between"}
+          alignItems={"center"}
+          gap={2}
+          w={"full"}
         >
-          <Input
-            placeholder="Comment here ..."
-            variant={"flushed"}
-            fontSize={14}
-          />
-        </InputGroup>
-      </Flex>
+          <InputGroup
+            flex="1"
+            // startElement={<Comment here />}
+            endElement={
+              <Button
+                fontSize={14}
+                color={"blue.500"}
+                fontWeight={600}
+                cursor={"pointer"}
+                _hover={{ color: "white" }}
+                background={"transparent"}
+                onClick={handleSubmitComment}
+              >
+                Post
+              </Button>
+            }
+          >
+            <Input
+              placeholder="Comment here ..."
+              variant={"flushed"}
+              fontSize={14}
+              onChange={(e) => setComment(e.target.value)}
+            />
+          </InputGroup>
+        </Flex>
+      )}
     </Box>
   );
 };

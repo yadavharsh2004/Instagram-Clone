@@ -1,7 +1,7 @@
 import { Avatar, Flex, Text } from "@chakra-ui/react";
 import React from "react";
 
-const Comment = ({ createdAt, username, profilepic, text }) => {
+const Comment = ({ comment }) => {
   return (
     <Flex gap={4} >
       <Avatar.Root>
@@ -15,13 +15,13 @@ const Comment = ({ createdAt, username, profilepic, text }) => {
       <Flex direction={"column"}>
         <Flex gap={2}>
           <Text fontWeight={"bold"} fontSize={12}>
-            {username}
+            username
           </Text>
-          <Text fontSize={14} color={"whiteAlpha.800"}>{text}</Text>
+          <Text fontSize={14} color={"whiteAlpha.800"}>{comment.comment}</Text>
         </Flex>
 
         <Text fontSize={12} color={"gray"}>
-          {createdAt}
+          createdAt
         </Text>
       </Flex>
     </Flex>

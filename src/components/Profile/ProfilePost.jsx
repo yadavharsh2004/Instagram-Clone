@@ -8,7 +8,6 @@ import {
   GridItem,
   Image,
   Text,
-  useDisclosure,
   VStack,
 } from "@chakra-ui/react";
 import { AiFillHeart } from "react-icons/ai";
@@ -26,7 +25,6 @@ import { arrayRemove, deleteDoc, doc, updateDoc } from "firebase/firestore";
 import usePostStore from "../../store/postStore";
 
 const ProfilePost = ({ post  }) => {
-  // const { isOpen, onOpen, onClose } = useDisclosure();
   const userProfile = useUserProfileStore(state => state.userProfile);
   const authUser = useAuthStore(state => state.user)
   const showToast = useShowToast();
@@ -36,8 +34,8 @@ const ProfilePost = ({ post  }) => {
 
   const handleDeletePost = async () =>{
     if(!window.confirm("Are you sure, you want to delete your post??")) return ;
-    setIsDeleting(true);
     if(isDeleting) return ;
+    setIsDeleting(true);
 
     try {
       //TODO :: add this after getting firebase storage
@@ -75,7 +73,6 @@ const ProfilePost = ({ post  }) => {
             borderColor={"whiteAlpha.300"}
             position={"relative"}
             aspectRatio={1 / 1}
-            // onClick={onOpen}
           >
             <Flex
               opacity={0}
@@ -91,6 +88,7 @@ const ProfilePost = ({ post  }) => {
               justifyContent={"center"}
             >
               <Flex alignItems={"center"} justifyContent={"center"} gap={50}>
+                {/* No of Likes  */}
                 <Flex>
                   <AiFillHeart size={20} />
                   <Text fontWeight={"bold"} ml={2}>
@@ -98,6 +96,7 @@ const ProfilePost = ({ post  }) => {
                   </Text>
                 </Flex>
 
+                {/* No of comments  */}
                 <Flex>
                   <FaComment size={20} />
                   <Text fontWeight={"bold"} ml={2}>
@@ -107,8 +106,7 @@ const ProfilePost = ({ post  }) => {
               </Flex>
             </Flex>
 
-            <Image
-              src={post.imageURL || null}
+            <Image src={post.imageURL || null}
               alt="profile post"
               width={"100%"}
               height={"100%"}
@@ -228,7 +226,7 @@ const ProfilePost = ({ post  }) => {
                     )}
                   </Flex>
 
-                  <VStack
+                  <VStack 
                     gap={3}
                     w={"full"}
                     alignItems={"start"}
@@ -236,17 +234,14 @@ const ProfilePost = ({ post  }) => {
                     overflow={"auto"}
                     py={4}
                   >
-                    <Comment
-                      createdAt={"3h ago"}
-                      username={"rishabh.singh.3009"}
-                      profilepic={"profilepic.png"}
-                      text={"NOICE"}
-                    />
+                    {post.comments.map((comment)=>(
+                      <Comment key={comment.id} comment={comment} />
+                    ))}
                   </VStack>
 
                   <Box borderBottom={"2px solid"} borderColor={"gray.800"}></Box>
 
-                  <PostFooter isProfilePage={true} />
+                  <PostFooter isProfilePage={true} post={post} />
 
                 </Flex>
                 
