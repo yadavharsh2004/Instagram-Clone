@@ -31,7 +31,7 @@ const useSignupWithEmailAndPassword = () => {
 
         try{
             const newUser = await createUserWithEmailAndPassword(inputs.email, inputs.password);
-            if(!newUser && error) {
+            if(!newUser && error) { 
                 showToast("Error", error.message, "error");
                 return
             }

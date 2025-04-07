@@ -18,10 +18,10 @@ const useGetUserProfileByUsername = (username ) => {
           collection(firestore, "users"),
           where("username", "==", username)
         );
-        console.log("query created: ", q);
+        // console.log("query created: ", q);
 
         const querySnapshot = await getDocs(q);
-        console.log("Query result:", querySnapshot.empty ? "No user found" : "User found");
+        // console.log("Query result:", querySnapshot.empty ? "No user found" : "User found");
 
         if (querySnapshot.empty) return setUserProfile(null);
 
