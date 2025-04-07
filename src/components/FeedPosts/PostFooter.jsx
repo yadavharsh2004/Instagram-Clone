@@ -8,36 +8,29 @@ import {
 import { InputGroup } from "@/components/ui/input-group";
 import usePostComment from "../../hooks/usePostComment";
 import useAuthStore from "../../store/authStore";
+import useLikePost from "../../hooks/useLikePost";
+import { timeAgo } from "../../utils/timeAgo";
 
-const PostFooter = ({ post, username, isProfilePage }) => {
+const PostFooter = ({ post, isProfilePage, creatorProfile }) => {
   const [liked, setLiked] = useState(false);
-  const [likes, setLikes] = useState(0);
   const [comment, setComment] = useState("");
   const { isCommenting, handlePostComment } = usePostComment();
   const authUser = useAuthStore((state) => state.user);
   const commentRef = useRef(null);
+
+  const {isLiked, likes, handleLikePost} = useLikePost(post);
 
   const handleSubmitComment = async () => {
     await handlePostComment(post.id, comment);
     setComment("");
   };
 
-  const handleLike = () => {
-    if (liked) {
-      setLiked(false);
-      setLikes(likes - 1);
-    } else {
-      setLiked(true);
-      setLikes(likes + 1);
-    }
-  };
-
   return (
     //  maxW="470px"
     <Box mb={10} mt={"auto"}>
       <Flex alignItems={"center"} gap={4} w={"full"} pt={0} mb={2} mt={4}>
-        <Box onClick={handleLike}>
-          {liked ? <UnlikeLogo /> : <NotificationsLogo />}
+        <Box onClick={handleLikePost}>
+          {isLiked ? <UnlikeLogo /> : <NotificationsLogo />}
         </Box>
         <Box cursor={"pointer"} fontSize={18} onClick={() => commentRef.current.focus()}>
           <CommentLogo />
@@ -46,18 +39,29 @@ const PostFooter = ({ post, username, isProfilePage }) => {
 
       <Text fontSize={"sm"}>{likes} likes</Text>
 
+      {isProfilePage && (
+        <Text fontSize={12} color={"gray"}>
+          Posted {timeAgo(post.createdAt)}
+        </Text>
+      )}
+
       {!isProfilePage && (
         <>
           <Text fontSize={"sm"} fontWeight={"700"}>
-            {username}{" "}
+            {creatorProfile?.username}{" "}
             <Text as="span" flexWrap={200}>
-              Feeling good!!
+              {post.caption}
             </Text>
           </Text>
 
-          <Text fontSize={"sm"} color={"gray"}>
-            View all 1,000 comments
-          </Text>
+          {post.comments.length > 0? (
+            <Text fontSize={"sm"} color={"gray"} cursor={"pointer"}>
+              View all {post.comments.length} comments
+            </Text>
+          ):(
+          <Text fontSize={"sm"} color={"gray"} cursor={"pointer"}>
+            Be the first to comment on this post
+          </Text>)}
         </>
       )}
 
