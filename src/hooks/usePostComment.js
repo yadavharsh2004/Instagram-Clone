@@ -16,7 +16,10 @@ const usePostComment = () => {
         if(!authUser) return showToast("Error", "You must be logged in to comment!!", "error");
 
         setIsCommenting(true);
+        const commentRef = doc(collection(firestore, "posts", postId, "comments"));
+        const newCommentId = commentRef.id;
         const newComment = {
+            id: newCommentId,
             comment,    //from argument
             createdAt: Date.now(),
             createdBy: authUser.uid,
