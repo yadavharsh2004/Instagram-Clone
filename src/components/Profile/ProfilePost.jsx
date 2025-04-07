@@ -20,7 +20,6 @@ import useUserProfileStore from "../../store/userProfileStore";
 import useAuthStore from "../../store/authStore";
 import useShowToast from "../../hooks/useShowToast";
 import { firestore, storage } from "../../firebase/firebase";
-import { deleteObject, ref } from "firebase/storage";
 import { arrayRemove, deleteDoc, doc, updateDoc } from "firebase/firestore";
 import usePostStore from "../../store/postStore";
 import Caption from "../Comments/Caption";
@@ -114,41 +113,6 @@ const ProfilePost = ({ post  }) => {
             />
           </GridItem>
         </Dialog.Trigger>
-
-        {/*
-        <Modal isOpen={isOpen} onClose={onClose}
-          isCentered ={true}
-          size={{base:"3xl", md:"5xl"}}  
-        >
-          <ModalOverlay />
-          <ModalContent>
-            <ModalHeader>Modal Title</ModalHeader>
-            <ModalCloseButton />
-            <ModalBody bg={"black"} pb={5}>
-
-              <Flex gap={4} w={{base:"90%", sm:"70%", md:"full"}} mx={"auto"}>
-
-                <Box
-                  borderRadius={4}
-                  overflow={"hidden"}
-                  border={"1px solid"}
-                  borderColor={"whiteAlpha.300"}
-                  flex={1.5}
-                >
-                  <Image src={img} alt='profile Post'/> 
-                </Box>
-
-                <Flex flex={1} flexDirection={"column"} px={10} display={{base:"none", md:"flex"}}>
-                  <Flex>
-
-                  </Flex>
-                </Flex>
-
-              </Flex> 
-                body
-            </ModalBody>
-          </ModalContent>
-        </Modal>  */}
 
         <Dialog.Backdrop />
 

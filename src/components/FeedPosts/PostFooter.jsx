@@ -10,6 +10,7 @@ import usePostComment from "../../hooks/usePostComment";
 import useAuthStore from "../../store/authStore";
 import useLikePost from "../../hooks/useLikePost";
 import { timeAgo } from "../../utils/timeAgo";
+import Comment from "../Comments/Comment"
 
 const PostFooter = ({ post, isProfilePage, creatorProfile }) => {
   const [liked, setLiked] = useState(false);
@@ -20,9 +21,15 @@ const PostFooter = ({ post, isProfilePage, creatorProfile }) => {
 
   const {isLiked, likes, handleLikePost} = useLikePost(post);
 
-  const handleSubmitComment = async () => {
+  const handleSubmitComment = async (e) => {
+    e.preventDefault(); //do not refresh the page
     await handlePostComment(post.id, comment);
     setComment("");
+  };
+  const handleSubmitComment2 = async (e) => {
+    e.preventDefault(); //do not refresh the page
+    await handlePostComment(post.id, commentRef.current.value);
+    commentRef.current.value = "";
   };
 
   return (
@@ -55,13 +62,16 @@ const PostFooter = ({ post, isProfilePage, creatorProfile }) => {
           </Text>
 
           {post.comments.length > 0? (
-            <Text fontSize={"sm"} color={"gray"} cursor={"pointer"}>
+            <Text fontSize={"sm"} color={"gray"} cursor={"pointer"} 
+            onClick={() => document.getElementById("my_modal_1").showModal()}>
               View all {post.comments.length} comments
             </Text>
           ):(
           <Text fontSize={"sm"} color={"gray"} cursor={"pointer"}>
             Be the first to comment on this post
           </Text>)}
+
+          
         </>
       )}
 
@@ -99,6 +109,42 @@ const PostFooter = ({ post, isProfilePage, creatorProfile }) => {
           </InputGroup>
         </Flex>
       )}
+
+      <dialog id="my_modal_1" className="modal">
+        <div className="modal-box">
+        <Flex
+            p={4}
+						mb={4}
+						gap={4}
+						flexDir={"column"}
+						maxH={"250px"}
+						overflowY={"auto"}
+						// ref={commentsContainerRef}
+					>
+						{post.comments.map((comment, idx) => (
+							<Comment key={idx} comment={comment} />
+						))}
+					</Flex>
+					<form onSubmit={handleSubmitComment} style={{ marginTop: "2rem" }}>
+						<Input placeholder='Comment' size={"sm"} ref={commentRef} />
+					</form>
+
+          <form method="dialog">
+            <button 
+              className="btn btn-sm btn-circle btn-ghost absolute right-0 top-0">
+              ✕
+            </button>
+            <Flex w={"full"} justifyContent={"flex-end"}>
+              <button 
+                className="btn btn-sm btn-outline border-white text-black bg-white hover:bg-gray-100 absolute right-3 bottom-0"
+                type='submit' ml={"auto"} size={"sm"} my={4}
+                onClick={handleSubmitComment2} >
+								  Post
+							</button>
+            </Flex>
+          </form>
+        </div>
+      </dialog>
     </Box>
   );
 };
