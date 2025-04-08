@@ -34,7 +34,7 @@ const PostFooter = ({ post, isProfilePage, creatorProfile }) => {
 
   return (
     //  maxW="470px"
-    <Box mb={10} mt={"auto"}>
+    <Box mt={"auto"}>
       <Flex alignItems={"center"} gap={4} w={"full"} pt={0} mb={2} mt={4}>
         <Box onClick={handleLikePost}>
           {isLiked ? <UnlikeLogo /> : <NotificationsLogo />}
@@ -121,9 +121,9 @@ const PostFooter = ({ post, isProfilePage, creatorProfile }) => {
 						overflowY={"auto"}
 						// ref={commentsContainerRef}
 					>
-						{post.comments.map((comment, idx) => (
-							<Comment key={idx} comment={comment} />
-						))}
+            {post.comments.map((comment)=>(
+              <Comment key={comment.id} comment={comment} />
+            ))}
 					</Flex>
 					<form onSubmit={handleSubmitComment} style={{ marginTop: "2rem" }}>
 						<Input placeholder='Comment' size={"sm"} ref={commentRef} />
