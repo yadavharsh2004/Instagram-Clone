@@ -32,7 +32,7 @@ const Search = () => {
   const handleSearchUser = (e) => {
     e.preventDefault();
     getUserProfile(searchRef.current.value);
-    console.log(user);
+    // console.log(user);
   };
 
   return (
@@ -62,12 +62,16 @@ const Search = () => {
 
       <dialog id="my_modal_2" className="modal">
         <div className="modal-box">
-          <form onSubmit={handleSearchUser} style={{padding: 5}}>
+          <form onSubmit={handleSearchUser} style={{ padding: 5 }}>
             <FormControl className="flex flex-col gap-4">
-              <FormLabel><Text ml={5} mt={2} fontSize={20}>Username</Text></FormLabel>
+              <FormLabel>
+                <Text ml={5} mt={2} fontSize={20}>
+                  Username
+                </Text>
+              </FormLabel>
               <Input placeholder="harshyadav.3011" ref={searchRef} />
-			  <Box></Box>
-          {user && <SuggestedUser user={user} setUser={setUser} />}
+              <Box></Box>
+              {user && <SuggestedUser user={user} setUser={setUser} />}
             </FormControl>
           </form>
 
@@ -76,15 +80,15 @@ const Search = () => {
             <button className="btn btn-sm btn-circle btn-ghost absolute right-0 top-0">
               ✕
             </button>
-			<Flex w={"full"} justifyContent={"flex-end"}>
+            <Flex w={"full"} justifyContent={"flex-end"}>
               <button
-			  	className="btn btn-sm btn-outline border-white text-black bg-white hover:bg-gray-100 absolute right-3 top-16"
+                className="btn btn-sm btn-outline border-white text-black bg-white hover:bg-gray-100 absolute right-3 top-16"
                 type="submit"
                 ml={"auto"}
                 size={"sm"}
                 my={4}
                 // onLoad={isLoading}
-				onClick={handleSearchUser}
+                onClick={handleSearchUser}
               >
                 Search
               </button>

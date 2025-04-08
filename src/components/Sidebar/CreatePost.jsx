@@ -107,12 +107,12 @@ const CreatePost = () => {
             </Flex>
           )}
 
-          <form method="dialog">
+          <form method="dialog" >
             {/* if there is a button in form, it will close the modal */}
             <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
               ✕
             </button>
-            <button className="btn btn-sm btn-outline border-white text-black bg-white hover:bg-gray-100 absolute right-2 bottom-2"
+            <button className="btn btn-sm btn-outline border-white text-black bg-white hover:bg-gray-100 absolute right-2 top-18"
               onClick={handlePostCreation}
             >
               Post
@@ -192,7 +192,7 @@ function useCreatePost(){
       newPost.imageURL = downloadURL;
       if(userProfile.uid === authUser.uid) createPost({...newPost, id:postDocRef.id});
 
-      if(pathname !== '/' && useUserProfileStore.uid === authUser.uid) addPost({...newPost, id:postDocRef.id});
+      if(pathname !== '/' && userProfile.uid === authUser.uid) addPost({...newPost, id:postDocRef.id});
 
       showToast("Success", "Post created successfully", "success");
       

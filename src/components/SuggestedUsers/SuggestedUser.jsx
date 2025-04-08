@@ -3,6 +3,7 @@ import { useState } from "react";
 import useFollowUser from "../../hooks/useFollowUser";
 import useAuthStore from "../../store/authStore";
 import useSearchUser from "../../hooks/useSearchUser";
+import { Link } from "react-router-dom";
 
 const SuggestedUser = ({ user, setUser }) => {
   const { isFollowing, isUpdating, handleFollowUser } = useFollowUser(user.uid);
@@ -23,15 +24,19 @@ const SuggestedUser = ({ user, setUser }) => {
     <>
       <Flex justifyContent={"space-between"} alignItems={"center"} w={"full"}>
         <Flex alignItems={"center"} gap={2}>
-          <Avatar.Root size={"md"}>
-            <Avatar.Fallback name={user?.fullName} />
-            <Avatar.Image src={user.profilePicUrl || null} />
-          </Avatar.Root>
+          <Link to={`${user?.username}`}>
+            <Avatar.Root size={"md"}>
+              <Avatar.Fallback name={user?.fullName} />
+              <Avatar.Image src={user.profilePicUrl || null} />
+            </Avatar.Root>
+          </Link>
 
           <VStack spacing={2} alignItems={"flex-start"}>
-            <Text fontSize={12} fontWeight={"bold"}>
-              {user.fullName}
-            </Text>
+            <Link to={`${user?.username}`} onClick={() => document.getElementById('my_modal_2').close()}>
+              <Text fontSize={12} fontWeight={"bold"}>
+                {user.fullName}
+              </Text>
+            </Link>
             <Text fontSize={11} color={"gray.500"}>
               {user.followers.length} followers
             </Text>

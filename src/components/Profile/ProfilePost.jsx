@@ -119,7 +119,7 @@ const ProfilePost = ({ post  }) => {
         <Dialog.Positioner>
           <Dialog.Content>
 
-            <Dialog.CloseTrigger position={"absolute"} top={3} right={3}>
+            <Dialog.CloseTrigger position={"absolute"} cursor={"pointer"} top={3} right={3}>
               {/* <CloseButton /> */}
               X
             </Dialog.CloseTrigger>
