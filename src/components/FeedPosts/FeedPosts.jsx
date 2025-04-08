@@ -11,7 +11,7 @@ const FeedPosts = () => {
 
   return (
     // maxW={"container.sm"}
-    <Container py={10} px={2} >
+    <Container px={2} >
         {isLoading &&  
             [0, 1, 2].map((_, idx)=>(
                 <VStack key={idx} gap={4} alignItems={"flex-start"} mb={10}>

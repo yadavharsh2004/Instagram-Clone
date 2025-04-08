@@ -32,7 +32,7 @@ const FeedPost = ({post}) => {
   const {userProfile} = useGetUserProfileById(post.createdBy);
 
   return (
-    <Box display="flex" justifyContent="center" alignItems="center" minH="100vh" border={"1px solid"}>  
+    <Box display="flex" justifyContent="center" alignItems="center" minH="100vh" >  
     {/* <Container border={"1px solid"}> */}
         <Box>
         <PostHeader post={post} creatorProfile={userProfile} />

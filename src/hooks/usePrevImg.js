@@ -4,7 +4,7 @@ import useShowToast from './useShowToast';
 const usePrevImg = () => {
   const [selectedFile, setSelectedFile] = useState(null);
   const showToast = useShowToast();
-  const maxFileSizeInBytes = 2 * 1024 * 1024;  //2 MB
+  const maxFileSizeInBytes = 5 * 1024 * 1024;  //2 MB
 
   const handleImageChange = (e) =>{
     const file = e.target.files[0];
@@ -19,7 +19,7 @@ const usePrevImg = () => {
         const reader = new FileReader();
         
         reader.onloadend = () =>{
-            console.log("File loaded successfully:", reader.result);
+            // console.log("File loaded successfully:", reader.result);
             setSelectedFile(reader.result);
         }
         

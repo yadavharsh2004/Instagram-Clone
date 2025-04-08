@@ -23,6 +23,7 @@ import { firestore, storage } from "../../firebase/firebase";
 import { arrayRemove, deleteDoc, doc, updateDoc } from "firebase/firestore";
 import usePostStore from "../../store/postStore";
 import Caption from "../Comments/Caption";
+import {X} from 'lucide-react'
 
 const ProfilePost = ({ post  }) => {
   const userProfile = useUserProfileStore(state => state.userProfile);
@@ -121,7 +122,7 @@ const ProfilePost = ({ post  }) => {
 
             <Dialog.CloseTrigger position={"absolute"} cursor={"pointer"} top={3} right={3}>
               {/* <CloseButton /> */}
-              X
+              <X />
             </Dialog.CloseTrigger>
 
             <Dialog.Body bg={"black"} pb={5}>
@@ -143,7 +144,7 @@ const ProfilePost = ({ post  }) => {
                   justifyContent={"center"}
                   w={"100%"}                  
                 >
-                  <Image maxH={"682px"} src={post.imageURL || null} alt="profile Post" />
+                  <Image maxH={"682px"}  src={post.imageURL || null} alt="profile Post" />
                 </Flex>
 
                 {/* Right Side  */}

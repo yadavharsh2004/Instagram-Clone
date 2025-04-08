@@ -8,12 +8,12 @@ const HomePage = () => {
     <>
       <Container maxW={"container.lg"}>
         <Flex gap={20}>
-          <Box maxW={"container.lg"} flex={2} py={10} border={"1px solid blue"} >
+          <Box maxW={"container.lg"} flex={2} py={10}  >
             <FeedPosts />
           </Box>
 
           <Box flex={3} mr={20} display={{ base: "none", lg: "block" }}
-            maxW={"300px"} border={"1px solid red"}
+            maxW={"300px"} 
           >
             <SuggestedUsers />
           </Box>
