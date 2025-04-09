@@ -37,6 +37,7 @@ import {
 } from "firebase/firestore";
 import { firestore, storage } from "../../firebase/firebase";
 import { getDownloadURL, ref, uploadString } from "firebase/storage";
+import uploadToCLoudinary from "../../hooks/uploadToCLoudinary";
 
 const CreatePost = () => {
   const [caption, setCaption] = useState("");
@@ -194,6 +195,8 @@ function useCreatePost() {
   const userProfile = useUserProfileStore((state) => state.userProfile);
   const addPost = useUserProfileStore((state) => state.addPost);
   const { pathname } = useLocation();
+  const {uploadImage} = uploadToCLoudinary();
+
 
   const handleCreatePost = async (selectedFile, caption) => {
     if (isLoading) return;
@@ -216,35 +219,14 @@ function useCreatePost() {
       // const imageRef = ref(storage, `posts/${postDocRef.id}`);
       // await uploadString(imageRef, selectedFile, "data_url")
       // const downloadURL = await getDownloadURL(imageRef);
-      const cloudName = import.meta.env.VITE_CLOUDINARY_CLOUD_NAME;
-      const uploadPreset = import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET;
 
-      let downloadURL = "";
-      const uploadUrl = `https://api.cloudinary.com/v1_1/${cloudName}/image/upload`;
-      const formData = new FormData();
-
-      formData.append("file", selectedFile); // selectedFile is data URL or File object
-      formData.append("upload_preset", uploadPreset);
-      // Optional: Specify folder or public_id if needed and allowed by preset
-      formData.append("folder", "posts");
-      formData.append("public_id", postDocRef.id);
-
-      const response = await fetch(uploadUrl, {
-        method: "POST",
-        body: formData,
-      });
-      const data = await response.json(); // Parse the response
-
-      if (!response.ok) {
-        console.error("Cloudinary Upload Error Response:", data);
-        throw new Error(
-          data.error?.message || `Cloudinary upload failed: ${response.status}`
-        );
+      const newURL = await uploadImage(selectedFile,  "posts" );
+      if (!newURL) {
+          // Upload failed (error shown by useUploadToCloudinary), stop the edit process
+          return;
       }
+      let downloadURL = newURL;
 
-      // If upload succeeded, get the secure URL
-      downloadURL = data.secure_url;
-      // console.log("Cloudinary Upload Success:", downloadURL);
 
       await updateDoc(postDocRef, { imageURL: downloadURL });
 
