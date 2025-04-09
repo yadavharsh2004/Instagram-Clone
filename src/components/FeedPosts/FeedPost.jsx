@@ -32,7 +32,7 @@ const FeedPost = ({post}) => {
 
   return (
     <Box display="flex" justifyContent="center" alignItems="center" >  
-      <Container border={"1px solid"}>
+      <Container>
           {/* <Box> */}
             <PostHeader post={post} creatorProfile={userProfile} />
 
