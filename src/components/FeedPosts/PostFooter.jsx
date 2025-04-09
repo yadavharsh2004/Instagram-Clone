@@ -25,11 +25,12 @@ const PostFooter = ({ post, isProfilePage, creatorProfile }) => {
     e.preventDefault(); //do not refresh the page
     await handlePostComment(post.id, comment);
     setComment("");
+    commentRef.current.value = null;
   };
   const handleSubmitComment2 = async (e) => {
     e.preventDefault(); //do not refresh the page
     await handlePostComment(post.id, commentRef.current.value);
-    commentRef.current.value = "";
+    commentRef.current.value = null;
   };
 
   return (
@@ -63,7 +64,7 @@ const PostFooter = ({ post, isProfilePage, creatorProfile }) => {
 
           {post.comments.length > 0? (
             <Text fontSize={"sm"} color={"gray"} cursor={"pointer"} 
-            onClick={() => document.getElementById("my_modal_1").showModal()}>
+            onClick={() => document.getElementById(`modal_${post.id}`).showModal()}>
               View all {post.comments.length} comments
             </Text>
           ):(
@@ -110,7 +111,7 @@ const PostFooter = ({ post, isProfilePage, creatorProfile }) => {
         </Flex>
       )}
 
-      <dialog id="my_modal_1" className="modal">
+      <dialog id={`modal_${post.id}`} className="modal">
         <div className="modal-box">
         <Flex
             p={4}

@@ -6,7 +6,6 @@
 //   return (
 //     <>
 //         <PostHeader username={username} avatar={avatar} />
-//         {/* maxW="468px" maxH="585px"  */}
 //         <Box my={2} borderRadius={7} overflow={"hidden"}  >
 //             <Image src={img} alt='user profile pic'/>
 //         </Box>
@@ -32,18 +31,19 @@ const FeedPost = ({post}) => {
   const {userProfile} = useGetUserProfileById(post.createdBy);
 
   return (
-    <Box display="flex" justifyContent="center" alignItems="center" minH="100vh" >  
-    {/* <Container border={"1px solid"}> */}
-        <Box>
-        <PostHeader post={post} creatorProfile={userProfile} />
+    <Box display="flex" justifyContent="center" alignItems="center" >  
+      <Container border={"1px solid"}>
+          {/* <Box> */}
+            <PostHeader post={post} creatorProfile={userProfile} />
 
-        {/* maxW="468px" maxH="585px"  */}
-        <Box my={2} borderRadius={7} overflow={"hidden"} maxW="468px" maxH="585px"  >
-            <Image src={post.imageURL} alt='Feed Post Image'/>
-        </Box>
-          <PostFooter post={post} creatorProfile={userProfile} />
-        </Box>
-    {/* </Container> */}
+            {/* maxW="468px" maxH="585px"  */}
+            <Box my={2} borderRadius={7} overflow={"hidden"} >
+                <Image src={post.imageURL} alt='Feed Post Image'/>
+            </Box>
+            
+            <PostFooter post={post} creatorProfile={userProfile} />
+          {/* </Box>  c */}
+      </Container>
     </Box>
   )
 }
