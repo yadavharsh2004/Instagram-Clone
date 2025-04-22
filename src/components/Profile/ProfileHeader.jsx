@@ -16,6 +16,9 @@ import useFollowUser from "../../hooks/useFollowUser";
 
 const ProfileHeader = () => {
   const { userProfile } = useUserProfileStore();
+  const posts = useUserProfileStore(state => state.userProfile?.posts);
+  const followers = useUserProfileStore(state => state.userProfile?.followers);
+
   const authUser = useAuthStore((state) => state.user);
   const {isFollowing, isUpdating, handleFollowUser} = useFollowUser(userProfile?.uid);
 
@@ -115,7 +118,7 @@ const ProfileHeader = () => {
         <Flex alignItems={"center"} gap={{ base: 2, sm: 4 }}>
           <Text fontSize={"xs"}>
             <Text as="span" fontWeight={"bold"} mr={1}>
-              {userProfile.posts.length}
+              {posts?.length}
             </Text>
             Posts
           </Text>
