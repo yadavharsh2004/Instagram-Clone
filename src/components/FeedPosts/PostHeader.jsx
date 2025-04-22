@@ -46,7 +46,7 @@ const PostHeader = ({ post, creatorProfile }) => {
             ) : (
               <Skeleton w={"100px"} h={"10px"} />
             )}
-            <Box color={"gray.500"}>• {timeAgo(post.createdAt)}</Box>
+            <Text fontSize={9} color={"gray.500"}>• {timeAgo(post.createdAt)}</Text>
           </Flex>
         </Flex>
 
