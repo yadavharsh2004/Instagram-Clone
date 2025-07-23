@@ -3,6 +3,13 @@
 **Live Demo 👉 [https://social-media-murex-ten.vercel.app/](https://social-media-murex-ten.vercel.app/)**
 
 ---
+## 🖼️ Screenshots
+
+| Home Page                                    | Profile Page                                    |
+| -------------------------------------------- | ---------------------------------------------------- |
+| ![Home Page Screenshot](public/SS1.png) | ![Companion Session Screenshot](./public/SS2.png) |
+
+---
 
 A full-stack **Instagram-like social media application** built using React and Firebase. This app lets users share posts, follow others, view suggested users, comment, like posts, and manage their profiles — all in a clean, modern UI.
 
